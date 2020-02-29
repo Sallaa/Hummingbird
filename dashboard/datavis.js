@@ -1,5 +1,6 @@
-const svg = d3.select("svg1")
+const svg = d3.select("#svg1")
     .append("svg")
+    .attr("id", "svg")
     .attr("width", 700)
     .attr("height", 300);
 
