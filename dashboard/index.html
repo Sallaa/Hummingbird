@@ -40,21 +40,40 @@
         stroke: #bbb;
     }
 
-    #pad {
-        padding-top: 3rem;
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
+    
+    .item {
+        margin: auto;
+    }
+
+
+
 </style>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <body>
-    <h1>Heatmap</h1>
-    <p id="svg1">
 
-    </p>
-    <h1 id="pad">Confidence</h1>
-    <p id="svg2">
+    <div class="container">
+        <div class="item">
+            <h1>Heatmap</h1>
+            <p id="svg1">
+            </p>
+            <button>View Data</button>
+        </div>
+        <div class="item">
+            <h1>Confidence</h1>
+            <p id="svg2">
 
-    </p>
+            </p>
+            <button>View Data</button>
+        </div>
+
+    </div>
+
 </body>
 <script src="datavis.js"></script>
 <script src="datavis2.js"></script>
