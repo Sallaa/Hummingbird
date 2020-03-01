@@ -2,7 +2,7 @@ const svg = d3.select("#svg1")
     .append("svg")
     .attr("id", "svg")
     .attr("width", 330)
-    .attr("height", 586);
+    .attr("height", 585);
 
 const width = svg.attr("width");
 const height = svg.attr("height");
@@ -13,10 +13,10 @@ svg.append("rect")
     .attr("fill", "grey");
 
 // x axis scale
-const xScale = d3.scaleLinear().domain([0, chartWidth]).range([0, chartWidth]);
+const xScale = d3.scaleLinear().domain([0, width]).range([0, width]);
 
 //y axis scale
-const yScale = d3.scaleLinear().domain([0, chartHeight]).range([chartHeight, 0]);
+const yScale = d3.scaleLinear().domain([0, height]).range([0, height]);
 
 
 // define color scale
@@ -66,3 +66,108 @@ let getColorForPercentage = function (pct) {
     };
     return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
 };
+
+let percent = 0;
+
+// const data = [{
+//         "x": "120",
+//         "y": "130",
+//         "percentage": 0.4
+//     },
+//     {
+//         "x": "30",
+//         "y": "130",
+//         "percentage": 1
+//     }
+// ];
+// for (let w = 0; w < width; w+20) {
+// for (let h = 0; h <= height; h+20) {
+//     svg.append("rect")
+//         .attr("x", xScale(h))
+//         .attr("y", yScale(h))
+//         .attr("width", 5)
+//         .attr("height", 5)
+//         .style("fill", getColorForPercentage(0.4));
+// }
+// }
+
+
+d3.json("knn.json").then((data) => {
+    data.forEach((d, i) => {
+        const r = d['r'];
+        const g = d['g'];
+        const b = d['b'];
+
+        let rect = d3.select("svg")
+            .append("rect")
+            .attr("x", xScale(d["x"] * 5))
+            .attr("y", yScale(d["y"] * 5))
+            .attr("width", 10)
+            .attr("height", 10)
+            .style("fill", "rgb(" + d['b'] + "," + d['g'] + "," + d['r'] + ")");
+    });
+}, (error) => {
+    console.log(error);
+});
+
+
+
+function updateData() {
+    d3.json("knn_disease.json").then((data) => {
+        data.forEach((d, i) => {
+            const r = d['r'];
+            const g = d['g'];
+            const b = d['b'];
+
+            let rect = d3.select("svg")
+                .append("rect")
+                .attr("x", xScale(d["x"] * 5))
+                .attr("y", yScale(d["y"] * 5))
+                .attr("width", 10)
+                .attr("height", 10)
+                .style("fill", "rgb(" + d['b'] + "," + d['g'] + "," + d['r'] + ")");
+        });
+        d3.json("dots.json").then((data) => {
+            data.forEach((d, i) => {
+                let r;
+                let g;
+                let b;
+                
+                if (d["color"] == 1){
+                    r = 255;
+                    g = 0;
+                    b = 0;
+                } else if (d["color"] == 0){
+                    r = 0;
+                    g = 255;
+                    b = 0;
+                }
+                
+
+                let rect = d3.select("svg")
+                    .append("circle")
+                    .attr("cx", xScale(d["x"] * 330 / 200))
+                    .attr("cy", yScale(d["y"] * 586 / 369))
+                    .attr("r", 3)
+                    .style("fill", "rgb(" + r + "," + g + "," + b + ")");
+            });
+
+        }, (error) => {
+            console.log(error);
+        });
+    }, (error) => {
+        console.log(error);
+    });
+}
+
+
+// svg.append("rect")
+//     .attr("x", xScale(120))
+//     .attr("y", yScale(130))
+//     .attr("width", 5)
+//     .attr("height", 5)
+//     .style("fill", getColorForPercentage(0.4));
+
+console.log(xScale(120));
+
+// console.log(xScale(120));
