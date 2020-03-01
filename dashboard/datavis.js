@@ -67,30 +67,6 @@ let getColorForPercentage = function (pct) {
     return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
 };
 
-let percent = 0;
-
-// const data = [{
-//         "x": "120",
-//         "y": "130",
-//         "percentage": 0.4
-//     },
-//     {
-//         "x": "30",
-//         "y": "130",
-//         "percentage": 1
-//     }
-// ];
-// for (let w = 0; w < width; w+20) {
-// for (let h = 0; h <= height; h+20) {
-//     svg.append("rect")
-//         .attr("x", xScale(h))
-//         .attr("y", yScale(h))
-//         .attr("width", 5)
-//         .attr("height", 5)
-//         .style("fill", getColorForPercentage(0.4));
-// }
-// }
-
 
 d3.json("knn.json").then((data) => {
     data.forEach((d, i) => {
@@ -109,7 +85,6 @@ d3.json("knn.json").then((data) => {
 }, (error) => {
     console.log(error);
 });
-
 
 
 function updateData() {
@@ -132,17 +107,16 @@ function updateData() {
                 let r;
                 let g;
                 let b;
-                
-                if (d["color"] == 1){
+
+                if (d["color"] == 1) {
                     r = 255;
                     g = 0;
                     b = 0;
-                } else if (d["color"] == 0){
+                } else if (d["color"] == 0) {
                     r = 0;
                     g = 255;
                     b = 0;
                 }
-                
 
                 let rect = d3.select("svg")
                     .append("circle")
@@ -160,14 +134,4 @@ function updateData() {
     });
 }
 
-
-// svg.append("rect")
-//     .attr("x", xScale(120))
-//     .attr("y", yScale(130))
-//     .attr("width", 5)
-//     .attr("height", 5)
-//     .style("fill", getColorForPercentage(0.4));
-
 console.log(xScale(120));
-
-// console.log(xScale(120));
